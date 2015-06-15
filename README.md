@@ -28,3 +28,5 @@ Use available resolutions as argument:
 1600x900
 1280x720 or 720p
 ```
+todo:
+- add possibility to put any resolution
