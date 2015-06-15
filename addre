@@ -40,22 +40,27 @@ case $1 in
   done
   ;;
   *)
-    echo "wrong resolution..."
-    echo ""
+    echo -e "\e[31m wrong resolution...\e[0m"
+    echo -e "exit 0"
     exit 0
   ;;
 esac
 
 res=$(cvt $_cvt | sed 's/^.*MHz//' | sed 's/\/.*//' | sed 's/^.*Modeline//' | sed 's/\"//g')
-echo $res
+echo -e "\e[36m res=\e[33m$res \e[0m"
+echo -e "\e[36m ================ xrandr --newmode $res =================\e[0m"
 xrandr --newmode $res
-disp=$(sudo xrandr -q | grep " connected" | cut -d " " -f 1)
-echo $disp
 name=$(echo $res | sed 's/\ .*//')
 if [ $USER = "root" ]; then
+  disp=$(xrandr -q | grep " connected" | cut -d " " -f 1)
+  echo -e "\e[36m ================ xrandr --addmode $disp $name =================\e[0m"
   xrandr --addmode $disp $name
 else
+  disp=$(sudo xrandr -q | grep " connected" | cut -d " " -f 1)
+  echo -e "\e[36m ================ xrandr --addmode $disp $name =================\e[0m"
   sudo xrandr --addmode $disp $name
 fi
+echo -e "\e[36m disp=\e[33m$disp \e[0m"
+echo -e "\e[36m ================ xrandr -s $name =================\e[0m"
 export DISPLAY=:0 && xrandr -s $name
 xrandr -q
