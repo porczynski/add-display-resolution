@@ -47,10 +47,13 @@ case $1 in
 esac
 
 res=$(cvt $_cvt | sed 's/^.*MHz//' | sed 's/\/.*//' | sed 's/^.*Modeline//' | sed 's/\"//g')
+name=$(echo $res | sed 's/\_.*//')
+res=$(echo $res | sed 's/^.*60.00 //')
+res="$name $res"
 echo -e "\e[36m res=\e[33m$res \e[0m"
 echo -e "\e[36m ================ xrandr --newmode $res =================\e[0m"
 xrandr --newmode $res
-name=$(echo $res | sed 's/\ .*//')
+
 if [ $USER = "root" ]; then
   disp=$(xrandr -q | grep " connected" | cut -d " " -f 1)
   echo -e "\e[36m ================ xrandr --addmode $disp $name =================\e[0m"
@@ -61,6 +64,9 @@ else
   sudo xrandr --addmode $disp $name
 fi
 echo -e "\e[36m disp=\e[33m$disp \e[0m"
+echo -e "\e[36m ================ xrandr --output $disp --mode $name =================\e[0m"
+xrandr --output $disp --mode $name
 echo -e "\e[36m ================ xrandr -s $name =================\e[0m"
 export DISPLAY=:0 && xrandr -s $name
+echo -e "\e[36m ================ xrandr -q =================\e[0m"
 xrandr -q
