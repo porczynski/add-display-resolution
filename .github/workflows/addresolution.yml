@@ -1,4 +1,4 @@
-name: ver.0.0.6
+name: CI
 
 on: [push]
 
