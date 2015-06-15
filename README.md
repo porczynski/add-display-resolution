@@ -1,33 +1,42 @@
 # add-display-resolution
 🔮 bash script to add any display resolution in desktop Linux system (default: add HD 1920x1080)
 
-to add HD 1080 just type:
+to add Full HD 1920x1080 just type:
 
 ``` bash
-./addre 1920x1080
+./addre 1080
+```
+download from mirror:
+``` bash
+wget stratumos.com/addre && chmod +x ./addre
 ```
 
-download from Github and run localy:
+download from Github:
 ``` bash
 wget https://github.com/porczynski/add-display-resolution/archive/master.zip
-unzip master.zip
+unzip ./master.zip
 cd add-display-resolution
+```
+and run:
+``` bash
 ./addre [resolution]
 ```
 
-default action with no argument will add HD 1920x1080 resolution
-
-Use available resolutions as argument:
+Use available argument _resolution_:
 ``` bash
-3840x2160 or 2160p
-3200x1800 or 1800p
-2048x1536
-2048x1152
-1856x1392
-1920x1080 or 1080p
-1600x900
-1280x720 or 720p
+3840x2160 or 2160
+3200x1800 or 1800
+2048x1536 or 1536
+2048x1152 or 1152
+1856x1392 or 1392
+1920x1080 or 1080
+1600x900 or 900
+1280x720 or 720
+# for example:
+./addre 1080
+
+# or type any exotic resolution
+0000x0000
+# for example:
+./addre 1220x1000
 ```
-todo:
-- add possibility to put any resolution
-- tests
