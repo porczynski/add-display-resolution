@@ -28,6 +28,17 @@ case $1 in
   "1280x720"|"720")
     _cvt="1280 720 60"
   ;;
+# add any resolution
+  *"x"*)
+  for i in "$1"; do
+    _cvt_h=$(echo $i | sed 's/x.*//')
+    _cvt_v="${i#*x}"
+    echo "_cvt_h="$_cvt_h
+    echo "_cvt_v="$_cvt_v
+    _cvt=$_cvt_h" "$_cvt_v" 60"
+    echo "_cvt="$_cvt
+  done
+  ;;
   *)
     echo "wrong resolution..."
     echo ""
