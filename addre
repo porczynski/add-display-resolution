@@ -1,0 +1,21 @@
+#/usr/bins/env bash
+# add desktop resolution 1920x1080
+# usage:
+# ./addre 1920x1080
+
+function res_1920x1080 () {
+  res=$(cvt 1920 1080 60)
+  xrandr --newmode $res
+  disp=$(sudo xrandr -q| grep " connected" | cut -d " " -f 1)
+  sudo xrandr --addmode $disp 1920x1080_60.00
+}
+
+case $1 in 
+  1920x1080)
+    res_1920x1080
+  ;;
+  *)
+    echo "wrong resolution..."
+    echo ""
+  ;;
+esac
