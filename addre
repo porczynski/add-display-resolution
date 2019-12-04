@@ -4,10 +4,15 @@
 # ./addre 1920x1080
 
 function res_1920x1080 () {
-  res=$(cvt 1920 1080 60) | sed 's/^.*Modeline//' | sed 's/\/.*//')
+  res=$(cvt 1920 1080 60 | sed 's/^.*MHz//' | sed 's/\/.*//' | sed 's/^.*Modeline//' | sed 's/\"//g')
+  echo $res
+  xrandr -q
   xrandr --newmode $res
   disp=$(sudo xrandr -q| grep " connected" | cut -d " " -f 1)
-  sudo xrandr --addmode $disp 1920x1080_60.00
+  echo $disp
+  name=$(echo $res | sed 's/\ .*//')
+  sudo xrandr --addmode $disp $name
+  export DISPLAY=:0 && xrandr -s $name
 }
 
 case $1 in
