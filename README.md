@@ -30,3 +30,4 @@ Use available resolutions as argument:
 ```
 todo:
 - add possibility to put any resolution
+- tests
