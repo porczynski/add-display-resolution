@@ -3,36 +3,27 @@
 # usage:
 # ./addre 1920x1080
 
-function res_1920x1080 () {
-  res=$(cvt 1920 1080 60 | sed 's/^.*MHz//' | sed 's/\/.*//' | sed 's/^.*Modeline//' | sed 's/\"//g')
-}
-
-function res_1280x720 () {
-  res=$(cvt 1280 720 60 | sed 's/^.*MHz//' | sed 's/\/.*//' | sed 's/^.*Modeline//' | sed 's/\"//g')
-}
-
-function addmode () {
-  echo $res
-  xrandr -q
-  xrandr --newmode $res
-  disp=$(sudo xrandr -q| grep " connected" | cut -d " " -f 1)
-  echo $disp
-  name=$(echo $res | sed 's/\ .*//')
-  sudo xrandr --addmode $disp $name
-  export DISPLAY=:0 && xrandr -s $name
-}
-
 case $1 in
-  1280x720)
-    res_1280x720
-    addmode
+  1280x720|720p)
+    res=$(cvt 1280 720 60 | sed 's/^.*MHz//' | sed 's/\/.*//' | sed 's/^.*Modeline//' | sed 's/\"//g')
   ;;
-  1920x1080)
-    res_1920x1080
-    addmode
+  1920x1080|1080p)
+    res=$(cvt 1920 1080 60 | sed 's/^.*MHz//' | sed 's/\/.*//' | sed 's/^.*Modeline//' | sed 's/\"//g')
+  ;;
+  1600x900)
+    res=$(cvt 1600 900 60 | sed 's/^.*MHz//' | sed 's/\/.*//' | sed 's/^.*Modeline//' | sed 's/\"//g')
   ;;
   *)
     echo "wrong resolution..."
     echo ""
   ;;
 esac
+
+echo $res
+xrandr --newmode $res
+disp=$(sudo xrandr -q| grep " connected" | cut -d " " -f 1)
+echo $disp
+name=$(echo $res | sed 's/\ .*//')
+sudo xrandr --addmode $disp $name
+export DISPLAY=:0 && xrandr -s $name
+xrandr -q
