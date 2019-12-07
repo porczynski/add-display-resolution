@@ -42,6 +42,7 @@ case $1 in
   *)
     echo "wrong resolution..."
     echo ""
+    exit 0
   ;;
 esac
 
@@ -51,6 +52,10 @@ xrandr --newmode $res
 disp=$(sudo xrandr -q | grep " connected" | cut -d " " -f 1)
 echo $disp
 name=$(echo $res | sed 's/\ .*//')
-sudo xrandr --addmode $disp $name
+if [ $USER = "root" ]; then
+  xrandr --addmode $disp $name
+else
+  sudo xrandr --addmode $disp $name
+fi
 export DISPLAY=:0 && xrandr -s $name
 xrandr -q
