@@ -1,4 +1,4 @@
-![](https://github.com/porczynski/add-display-resolution/workflows/ver.0.0.6/badge.svg)
+![](https://github.com/porczynski/add-display-resolution/workflows/CI/badge.svg)
 
 # add-display-resolution
 🔮 bash script to add any display resolution in desktop Linux system (default: add HD 1920x1080)
